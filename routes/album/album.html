@@ -1,0 +1,45 @@
+<header class="page-header">
+  <aside>
+    <div class="thumb-l"
+         ng-style="{'background-image': 'url(' + album.images[1].url + ')'}">
+    </div>
+
+    <ul class="thumbs-list">
+      <li ng-repeat="artist in artists">
+        <a href="#/artist/{{ artist.id }}">
+          <div class="thumb-s"
+               ng-style="{'background-image': 'url(' + artist.images[2].url + ')'}">
+          </div>
+          <p>{{ artist.name }}</p>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <section>
+    <header>
+      <h1>{{ album.name }}</h1>
+      <h2>{{ album.release_date | date:'yyyy' }}</h2>
+    </header>
+
+    <section class="table-section">
+      <header><h1>Tracks</h1></header>
+      <table class="tracks-table">
+        <tr ng-repeat="track in album.tracks.items">
+          <td>
+            <play-button src="{{ track.preview_url }}"></play-button>
+          </td>
+          <td><a href="#/album/{{ track.album.id }}">{{ track.name }}</a></td>
+          <td><a href="#/album/{{ track.album.id }}">{{ track.album.name }}</a></td>
+          <td>
+            <a ng-repeat="artist in track.artists"
+               href="#/artist/{{ artist.id }}">
+              {{ artist.name }}
+            </a>
+          </td>
+          <td class="">{{ track.duration_ms | duration }}</td>
+        </tr>
+      </table>
+    </section>
+  </section>
+</header>

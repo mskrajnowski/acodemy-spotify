@@ -5,12 +5,14 @@
 
   <!-- dependencies -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="css/bower.css">
+  <link rel="stylesheet" href="bower/normalize.css/normalize.css">
+  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css">
   <!-- endinject -->
 
   <!-- app styling -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="navbar/navbar.css">
+  <link rel="stylesheet" href="app/app.css">
   <!-- endinject -->
 
   <!-- webcomponents -->
@@ -31,13 +33,28 @@
 
   <!-- dependencies -->
   <!-- bower:js -->
-  <script src="js/vendor.js"></script>
+  <script src="bower/angular/angular.js"></script>
+  <script src="bower/angular-route/angular-route.js"></script>
   <!-- endinject -->
 
   <!-- app logic -->
   <!-- inject:js -->
 
-  <script src="js/scripts.js"></script>
+  <script src="routes/search/search.js"></script>
+
+  <script src="routes/artist/artist.js"></script>
+
+  <script src="routes/album/album.js"></script>
+
+  <script src="directives/clearable-input/clearable-input.js"></script>
+
+  <script src="navbar/navbar.js"></script>
+
+  <script src="filters/duration.js"></script>
+
+  <script src="app/app.js"></script>
+
+  <script src="apis/spotify.js"></script>
 
   <!-- endinject -->
 </body>
