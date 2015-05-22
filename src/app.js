@@ -36,7 +36,7 @@ angular.module('app', [])
     };
   };
 })
-.directive('playButton', function() {
+.directive('playButton', function($document) {
   class PlayButton {
     constructor($scope, $element) {
       this.injects = {$scope, $element};
@@ -115,6 +115,9 @@ angular.module('app', [])
 
   PlayButton.list = [];
 
+  const document = $document[0];
+  const template = document.getElementById('playButtonTemplate');
+
   return {
     restrict: 'E',
     require: ['playButton'],
@@ -123,14 +126,7 @@ angular.module('app', [])
     },
     bindToController: true,
     controllerAs: 'button',
-    template: `
-      <button class="play-button" ng-click="button.state.next()">
-        <div class="icon-background">
-          <i class="{{ button.state.iconClass }}"></i>
-        </div>
-      </button>
-      <audio src=""></audio>
-    `,
+    template: template.innerHTML,
     link: function($scope, $element, $attrs, [ctrl]) {
       ctrl.link();
     },
