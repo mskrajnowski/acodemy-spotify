@@ -17,21 +17,26 @@ gulp.task('inject-reload', ['inject'], function() {
 
 gulp.task('inject', ['scripts'], function () {
   var injectStyles = gulp.src([
-    path.join(conf.paths.src, '/app/**/*.css')
+    path.join(conf.paths.src, '/app/**/*.css'),
   ], { read: false });
 
   var injectScripts = gulp.src([
-    path.join(conf.paths.tmp, '/serve/app/**/*.module.js')
+    path.join(conf.paths.tmp, '/serve/app/**/*.module.js'),
+  ], { read: false });
+
+  var injectWebComponents = gulp.src([
+    path.join(conf.paths.src, '/app/webcomponents/**/*.html'),
   ], { read: false });
 
   var injectOptions = {
     ignorePath: [conf.paths.src, path.join(conf.paths.tmp, '/serve')],
-    addRootSlash: false
+    addRootSlash: false,
   };
 
   return gulp.src(path.join(conf.paths.src, '/*.html'))
     .pipe($.inject(injectStyles, injectOptions))
     .pipe($.inject(injectScripts, injectOptions))
+    .pipe($.inject(injectWebComponents, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve')));
 });

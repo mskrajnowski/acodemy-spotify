@@ -15,7 +15,7 @@ exports.paths = {
   src: 'src',
   dist: 'dist',
   tmp: '.tmp',
-  e2e: 'e2e'
+  e2e: 'e2e',
 };
 
 /**
@@ -25,7 +25,7 @@ exports.paths = {
  */
 exports.wiredep = {
   exclude: [/jquery/],
-  directory: 'bower_components'
+  directory: 'bower_components',
 };
 
 /**

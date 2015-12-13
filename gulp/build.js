@@ -5,32 +5,75 @@ var gulp = require('gulp');
 var conf = require('./conf');
 
 var $ = require('gulp-load-plugins')({
-  pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
+  pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del'],
 });
 
 gulp.task('partials', function () {
   return gulp.src([
     path.join(conf.paths.src, '/app/**/*.html'),
-    path.join(conf.paths.tmp, '/serve/app/**/*.html')
+    path.join(conf.paths.tmp, '/serve/app/**/*.html'),
+    '!' + path.join(conf.paths.src, '/app/webcomponents/**/*.html'),
   ])
     .pipe($.minifyHtml({
       empty: true,
       spare: true,
-      quotes: true
+      quotes: true,
     }))
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
       module: 'acodemy.spotify',
-      root: 'app'
+      root: 'app',
     }))
     .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
 });
 
-gulp.task('html', ['inject', 'partials'], function () {
-  var partialsInjectFile = gulp.src(path.join(conf.paths.tmp, '/partials/templateCacheHtml.js'), { read: false });
+gulp.task('vulcanize', function() {
+  var src = path.join(conf.paths.tmp, 'webcomponents.html');
+  var template =
+    '<html><body>' +
+    '<!-- inject:html --><!-- endinject -->' +
+    '</body></html>';
+
+  var injectWebComponents = gulp.src(
+    ['src/app/webcomponents/**/*.html'],
+    { read: false }
+  );
+
+  var injectOptions = {
+    addRootSlash: false,
+    relative: true,
+  };
+
+  return $.file(src, template, {src: true})
+    .pipe($.inject(injectWebComponents, injectOptions))
+    .pipe(gulp.dest('.'))
+    .pipe($.vulcanize({
+      inlineScripts: true,
+      inlineCSS: true,
+    }))
+    .pipe(gulp.dest('.'));
+});
+
+gulp.task('html', ['inject', 'partials', 'vulcanize'], function () {
+  var partialsInjectFile = gulp.src(
+    path.join(conf.paths.tmp, '/partials/templateCacheHtml.js'),
+    { read: false }
+  );
+
   var partialsInjectOptions = {
     starttag: '<!-- inject:partials -->',
     ignorePath: path.join(conf.paths.tmp, '/partials'),
-    addRootSlash: false
+    addRootSlash: false,
+  };
+
+  var vulcanizeInjectFile =
+    gulp.src('webcomponents.html', {cwd: conf.paths.tmp})
+    .pipe($.rev())
+    .pipe(gulp.dest(conf.paths.dist));
+
+  var vulcanizeInjectOptions = {
+    starttag: '<!-- inject:html -->',
+    ignorePath: conf.paths.dist,
+    addRootSlash: false,
   };
 
   var htmlFilter = $.filter('*.html', { restore: true });
@@ -40,6 +83,7 @@ gulp.task('html', ['inject', 'partials'], function () {
 
   return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
     .pipe($.inject(partialsInjectFile, partialsInjectOptions))
+    .pipe($.inject(vulcanizeInjectFile, vulcanizeInjectOptions))
     .pipe(assets = $.useref.assets())
     .pipe($.rev())
     .pipe(jsFilter)
@@ -60,7 +104,7 @@ gulp.task('html', ['inject', 'partials'], function () {
       empty: true,
       spare: true,
       quotes: true,
-      conditionals: true
+      conditionals: true,
     }))
     .pipe(htmlFilter.restore)
     .pipe(gulp.dest(path.join(conf.paths.dist, '/')))
@@ -83,7 +127,7 @@ gulp.task('other', function () {
 
   return gulp.src([
     path.join(conf.paths.src, '/**/*'),
-    path.join('!' + conf.paths.src, '/**/*.{html,css,js}')
+    path.join('!' + conf.paths.src, '/**/*.{html,css,js}'),
   ])
     .pipe(fileFilter)
     .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
