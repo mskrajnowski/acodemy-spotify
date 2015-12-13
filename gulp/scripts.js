@@ -12,10 +12,11 @@ var $ = require('gulp-load-plugins')();
 
 function webpackWrapper(watch, test, callback) {
   var webpackOptions = {
+    resolve: { extensions: ['', '.ts'] },
     watch: watch,
     module: {
-      preLoaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'eslint-loader'}],
-      loaders: [{ test: /\.js$/, exclude: /node_modules/, loaders: ['ng-annotate', 'babel-loader']}]
+      preLoaders: [{ test: /\.ts$/, exclude: /node_modules/, loader: 'tslint-loader'}],
+      loaders: [{ test: /\.ts$/, exclude: /node_modules/, loaders: ['ng-annotate', 'awesome-typescript-loader']}]
     },
     output: { filename: 'index.module.js' }
   };
@@ -41,9 +42,9 @@ function webpackWrapper(watch, test, callback) {
     }
   };
 
-  var sources = [ path.join(conf.paths.src, '/app/index.module.js') ];
+  var sources = [ path.join(conf.paths.src, '/app/index.module.ts') ];
   if (test) {
-    sources.push(path.join(conf.paths.src, '/app/**/*.spec.js'));
+    sources.push(path.join(conf.paths.src, '/app/**/*.spec.ts'));
   }
 
   return gulp.src(sources)
