@@ -1,12 +1,8 @@
-export function routerConfig ($stateProvider, $urlRouterProvider) {
-  'ngInject';
-  $stateProvider
-    .state('home', {
-      url: '/',
-      templateUrl: 'app/main/main.html',
-      controller: 'MainController',
-      controllerAs: 'main'
-    });
+import main from './main/main.route.js';
 
+export function routerConfig (stateHelperProvider, $urlRouterProvider) {
+  'ngInject';
+
+  stateHelperProvider.state(main);
   $urlRouterProvider.otherwise('/');
 }
