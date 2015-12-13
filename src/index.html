@@ -1,135 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Acodemy spotify</title>
+<!doctype html>
+<html ng-app="acodemySpotifyFork" ng-strict-di>
+  <head>
+    <meta charset="utf-8">
+    <title>acodemySpotifyFork</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-  <!-- dependencies -->
-  <!-- bower:css -->
-  <link rel="stylesheet" href="bower/normalize.css/normalize.css">
-  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.css">
-  <!-- endinject -->
+    <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- run `gulp inject` to automatically populate bower styles dependencies -->
+    <!-- endbower -->
+    <!-- endbuild -->
 
-  <!-- app styling -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="styles.css">
-  <!-- endinject -->
+    <!-- build:css({.tmp/serve,src}) styles/app.css -->
+    <!-- inject:css -->
+    <!-- css files will be automatically insert here -->
+    <!-- endinject -->
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-  <!-- webcomponents -->
-  <!-- webcomponents:html -->
+    <div ui-view></div>
 
-  <link rel="import" href="bower/polymer/polymer.html">
+    <!-- build:js(src) scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- run `gulp inject` to automatically populate bower script dependencies -->
+    <!-- endbower -->
+    <!-- endbuild -->
 
-  <!-- endinject -->
-</head>
-<body>
-  <nav class="app-navbar initialized minimized">
-    <div class="app-logo">
-      <a href="">
-        <i class="fa fa-spotify"></i> Spotify browser
-      </a>
-    </div>
-    <div class="app-search">
-      <input type="text"
-             placeholder="search..." >
-      <button type="button"
-              class="input-clear"
-              tabindex="-1">
-        <i class="fa fa-times"></i>
-      </button>
-    </div>
-  </nav>
+    <!-- build:js({.tmp/serve,.tmp/partials}) scripts/app.js -->
+    <!-- inject:js -->
+    <!-- js files will be automatically insert here -->
+    <!-- endinject -->
 
+    <!-- inject:partials -->
+    <!-- angular templates will be automatically converted in js and inserted here -->
+    <!-- endinject -->
+    <!-- endbuild -->
 
-  <section class="tiles-section">
-    <header>
-      <h1>Albums</h1>
-      <h2>156 found</h2>
-    </header>
-    <div class="tiles-container">
-      <a class="tile thumb-m" title="Album" href="album/index.html"></a>
-      <a class="tile thumb-m" title="Album" href="album/index.html"></a>
-      <a class="tile thumb-m" title="Album" href="album/index.html"></a>
-      <a class="tile thumb-m" title="Album" href="album/index.html"></a>
-      <a class="tile thumb-m" title="Album" href="album/index.html"></a>
-      <a class="tile thumb-m" title="Album" href="album/index.html"></a>
-    </div>
-  </section>
-
-  <section class="tiles-section">
-    <header>
-      <h1>Artists</h1>
-      <h2>32 found</h2>
-    </header>
-    <div class="tiles-container">
-      <a class="tile thumb-m" title="Artist" href="artist/index.html"></a>
-      <a class="tile thumb-m" title="Artist" href="artist/index.html"></a>
-      <a class="tile thumb-m" title="Artist" href="artist/index.html"></a>
-      <a class="tile thumb-m" title="Artist" href="artist/index.html"></a>
-      <a class="tile thumb-m" title="Artist" href="artist/index.html"></a>
-      <a class="tile thumb-m" title="Artist" href="artist/index.html"></a>
-    </div>
-  </section>
-
-  <section class="table-section">
-    <header>
-      <h1>Tracks</h1>
-      <h2>1788 found</h2>
-    </header>
-    <table class="tracks-table">
-      <tr>
-        <td>
-          <button class="play-button">
-            <div class="icon-background">
-              <i class="fa fa-play"></i>
-            </div>
-          </button>
-        </td>
-        <td><a href="album/index.html">Track</a></td>
-        <td><a href="album/index.html">Album</a></td>
-        <td><a href="artist/index.html">Artist</a></td>
-        <td class="">9:59</td>
-      </tr>
-      <tr>
-        <td>
-          <button class="play-button">
-            <div class="icon-background">
-              <i class="fa fa-play"></i>
-            </div>
-          </button>
-        </td>
-        <td><a href="album/index.html">Track</a></td>
-        <td><a href="album/index.html">Album</a></td>
-        <td><a href="artist/index.html">Artist</a></td>
-        <td class="">9:59</td>
-      </tr>
-      <tr>
-        <td>
-          <button class="play-button">
-            <div class="icon-background">
-              <i class="fa fa-play"></i>
-            </div>
-          </button>
-        </td>
-        <td><a href="album/index.html">Track</a></td>
-        <td><a href="album/index.html">Album</a></td>
-        <td><a href="artist/index.html">Artist</a></td>
-        <td class="">9:59</td>
-      </tr>
-    </tbody></table>
-  </section>
-
-  <!-- dependencies -->
-  <!-- bower:js -->
-  <script src="bower/angular/angular.js"></script>
-  <script src="bower/angular-route/angular-route.js"></script>
-  <script src="bower/webcomponentsjs/webcomponents.js"></script>
-  <!-- endinject -->
-
-  <!-- app logic -->
-  <!-- inject:js -->
-
-  <!-- app scripts go here! -->
-
-  <!-- endinject -->
-</body>
+  </body>
 </html>
