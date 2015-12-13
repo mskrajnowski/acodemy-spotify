@@ -1,3 +1,6 @@
+/// <reference path="../../.tmp/typings/tsd.d.ts" />
+/// <reference path="../typings/angular-ui-state-helper.d.ts" />
+
 import main from './main/main.module';
 
 import { config } from './index.config';
