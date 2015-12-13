@@ -1,4 +1,4 @@
-import main from './main/main.route.js';
+import main from './main/main.route';
 
 export function routerConfig (stateHelperProvider, $urlRouterProvider) {
   'ngInject';

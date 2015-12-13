@@ -1,4 +1,4 @@
-import {MainController} from './main.controller.js';
+import {MainController} from './main.controller';
 
 export default
   angular
