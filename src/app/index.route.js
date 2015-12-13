@@ -1,8 +1,5 @@
-import main from './main/main.route';
-
-export function routerConfig (stateHelperProvider, $urlRouterProvider) {
+export function routerConfig ($routeProvider) {
   'ngInject';
 
-  stateHelperProvider.state(main);
-  $urlRouterProvider.otherwise('/');
+  $routeProvider.otherwise('/');
 }
