@@ -1,4 +1,4 @@
-export function config ($logProvider) {
+export function config ($logProvider: angular.ILogProvider) {
   'ngInject';
 
   // Enable log

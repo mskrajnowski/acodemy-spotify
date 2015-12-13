@@ -1,4 +1,6 @@
-export function routerConfig ($routeProvider) {
+export function routerConfig (
+  $routeProvider: angular.route.IRouteProvider
+) {
   'ngInject';
 
   $routeProvider.otherwise('/');
