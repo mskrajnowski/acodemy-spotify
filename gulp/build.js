@@ -26,34 +26,12 @@ gulp.task('partials', function () {
     .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
 });
 
-gulp.task('vulcanize', function() {
-  var src = path.join(conf.paths.tmp, 'webcomponents.html');
-  var template =
-    '<html><body>' +
-    '<!-- inject:html --><!-- endinject -->' +
-    '</body></html>';
+gulp.task('html', ['inject', 'partials', 'webcomponents:build'], function () {
+  var htmlFilter = $.filter('*.html', { restore: true });
+  var jsFilter = $.filter('**/*.js', { restore: true });
+  var cssFilter = $.filter('**/*.css', { restore: true });
+  var assets;
 
-  var injectWebComponents = gulp.src(
-    ['src/app/webcomponents/**/*.html'],
-    { read: false }
-  );
-
-  var injectOptions = {
-    addRootSlash: false,
-    relative: true,
-  };
-
-  return $.file(src, template, {src: true})
-    .pipe($.inject(injectWebComponents, injectOptions))
-    .pipe(gulp.dest('.'))
-    .pipe($.vulcanize({
-      inlineScripts: true,
-      inlineCSS: true,
-    }))
-    .pipe(gulp.dest('.'));
-});
-
-gulp.task('html', ['inject', 'partials', 'vulcanize'], function () {
   var partialsInjectFile = gulp.src(
     path.join(conf.paths.tmp, '/partials/templateCacheHtml.js'),
     { read: false }
@@ -75,11 +53,6 @@ gulp.task('html', ['inject', 'partials', 'vulcanize'], function () {
     ignorePath: conf.paths.dist,
     addRootSlash: false,
   };
-
-  var htmlFilter = $.filter('*.html', { restore: true });
-  var jsFilter = $.filter('**/*.js', { restore: true });
-  var cssFilter = $.filter('**/*.css', { restore: true });
-  var assets;
 
   return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
     .pipe($.inject(partialsInjectFile, partialsInjectOptions))
